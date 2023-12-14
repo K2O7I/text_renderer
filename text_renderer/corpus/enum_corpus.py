@@ -77,4 +77,6 @@ class EnumCorpus(Corpus):
 
     def get_text(self):
         text = random_choice(self.texts, self.cfg.num_pick)
+        while len(text)<8: 
+            text = random_choice(self.texts, self.cfg.num_pick)
         return self.cfg.join_str.join(text)
