@@ -103,7 +103,7 @@ def enum():
 def dropout_rand():
     print(1)
     cfg = base_cfg_e(inspect.currentframe().f_code.co_name)
-    cfg.render_cfg.corpus_effects = Effects(DropoutRand(p=1, dropout_p=(0.3, 0.5)))
+    cfg.render_cfg.corpus_effects = Effects(DropoutRand(p=1, dropout_p=(0.5, 0.5)))
     return cfg
 
 
@@ -119,7 +119,7 @@ def dropout_horizontal():
 def dropout_vertical():
     print(3)
     cfg = base_cfg_e(inspect.currentframe().f_code.co_name)
-    cfg.render_cfg.corpus_effects = Effects(DropoutVertical(p=1, num_line=15))
+    cfg.render_cfg.corpus_effects = Effects([DropoutVertical(p=1, num_line=15), DropoutRand(p=1, dropout_p=(0.3, 0.5))])
     return cfg
 
 def vertical_text():
@@ -147,6 +147,6 @@ configs = [
     dropout_rand(),
     dropout_horizontal(),
     dropout_vertical(),
-    vertical_text(),
+    #vertical_text(),
     emboss(),
 ]
