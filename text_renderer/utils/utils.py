@@ -28,7 +28,9 @@ def random_choice(items, size=1):
     if size == 1:
         return out[0]
     return out
-
+    
+def index_choice(items, idx=1):
+    return items[idx]
 
 def draw_box(img, pnts, color):
     """
