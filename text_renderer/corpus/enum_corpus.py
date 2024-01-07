@@ -5,7 +5,7 @@ from typing import List
 import numpy as np
 from loguru import logger
 from text_renderer.utils.errors import PanicError
-from text_renderer.utils.utils import random_choice
+from text_renderer.utils.utils import random_choice, index_choice
 
 from .corpus import Corpus, CorpusCfg
 
@@ -37,6 +37,8 @@ class EnumCorpusCfg(CorpusCfg):
     filter_font: bool = False
     filter_font_min_support_chars: int = 100
     join_str: str = ""
+    checkIdx = 0
+    rand = False
 
 
 class EnumCorpus(Corpus):
@@ -76,7 +78,11 @@ class EnumCorpus(Corpus):
                 )
 
     def get_text(self):
+      if self.cfg.rand:
         text = random_choice(self.texts, self.cfg.num_pick)
         while len(text)<8: 
             text = random_choice(self.texts, self.cfg.num_pick)
-        return self.cfg.join_str.join(text)
+      else:
+        text = index_choice(self.texts, self.cfg.checkIdx)
+        self.cfg.checkIdx += 1
+      return self.cfg.join_str.join(text)
